@@ -103,3 +103,8 @@ This module contains all the logic for setting up the Ollama connection, definin
             *   Responding to the user in the language they used.
 *   **Global Variables:**
     *   `graph`: An instance of the compiled LangGraph agent, created by calling `build_ollama_graph(model_name="llama3.1")`. This is the object that `langgraph dev` serves.
+
+
+## Note
+
+Please be aware that the `test_conditions` folder contains files related to the test assignment. You are welcome to attempt to solve it independently, if you wish.
