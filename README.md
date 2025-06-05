@@ -10,12 +10,12 @@ This project demonstrates how to build a ReAct (Reasoning and Acting) agent usin
 | Python    | [![Python](https://img.shields.io/badge/Python%2DPython?style=flat&logo=python&color=%231f4361)](https://www.python.org/)                               | The core programming language used for the project.                                                                |
 | LangChain | [![LangChain](https://img.shields.io/badge/LangChain%2DLangChain?style=flat&logo=langchain&color=%231c3c3c)](https://python.langchain.com/)             | Framework for building LLM applications. Used here for `ChatOllama` and agent creation utilities.                  |
 | LangGraph | [![LangGraph](https://img.shields.io/badge/LangGraph%2DLangGraph?style=flat&logo=langchain&color=%23053d5b)](https://langchain-ai.github.io/langgraph/) | Library for building stateful, multi-actor LLM applications. Used for `create_react_agent` to construct the agent. |
-| Ollama    | [![Ollama](https://img.shields.io/badge/Ollama%2DOllama?style=flat&logo=ollama&color=%23dc6416)](https://ollama.com/)                                   | Platform for running LLMs locally. Used to serve the `llama3.1` model (or other specified model) for the agent.    |
+| Ollama    | [![Ollama](https://img.shields.io/badge/Ollama%2DOllama?style=flat&logo=ollama&color=%23dc6416)](https://ollama.com/)                                   | Platform for running LLMs locally. Used to serve the `qwen3:8b` model (or other specified model) for the agent.    |
 
 
 ## Key Features
 
-*   **Local LLM Execution:** Integrates with Ollama to run large language models (e.g., `llama3.1`) locally.
+*   **Local LLM Execution:** Integrates with Ollama to run large language models (e.g., `qwen3:8b`) locally.
 *   **ReAct Agent:** Implements a ReAct agent using LangChain and LangGraph, enabling the LLM to reason and use tools.
 *   **Custom Time Tool:** Features a `get_current_time` tool that allows the agent to fetch the current UTC time.
 *   **Contextual Tool Usage:** The agent is specifically prompted to:
@@ -52,14 +52,13 @@ The agent is designed to be run using the LangGraph development server, which pr
 ### Running the Agent
 
 1.  **Ensure Ollama is running:**
-    Start your Ollama application. The script will attempt to pull the `llama3.1` model if it's not present.
+    Start your Ollama application. The script will attempt to pull the `qwen3:8b` model if it's not present.
 
 2.  **Run the agent using LangGraph CLI:**
 
     ```bash
     langgraph dev
     ```
-
 
 ### Example Interactions (via Web UI)
 
@@ -91,7 +90,7 @@ This module contains all the logic for setting up the Ollama connection, definin
     *   `setup_ollama(...)`:
         *   Initializes and configures the Ollama LLM.
         *   Checks if the `ollama` command-line tool is installed and accessible. Exits if not.
-        *   Attempts to pull the specified `model_name` (e.g., `llama3.1`) using `ollama pull`. Exits on failure.
+        *   Attempts to pull the specified `model_name` (e.g., `qwen3:8b`) using `ollama pull`. Exits on failure.
         *   Returns a `ChatOllama` instance configured with the specified model.
     *   `build_ollama_graph(...)`:
         *   Constructs the LangGraph ReAct agent.
@@ -102,7 +101,7 @@ This module contains all the logic for setting up the Ollama connection, definin
             *   Using the `get_current_time` tool only when explicitly asked for the time.
             *   Responding to the user in the language they used.
 *   **Global Variables:**
-    *   `graph`: An instance of the compiled LangGraph agent, created by calling `build_ollama_graph(model_name="llama3.1")`. This is the object that `langgraph dev` serves.
+    *   `graph`: An instance of the compiled LangGraph agent, created by calling `build_ollama_graph(model_name="qwen3:8b")`. This is the object that `langgraph dev` serves.
 
 
 ## Note

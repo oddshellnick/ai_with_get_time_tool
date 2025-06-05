@@ -22,7 +22,7 @@ def setup_ollama(model_name: str) -> ChatOllama:
     Sets up the Ollama environment by checking installation and pulling the specified model.
 
     Args:
-        model_name (str): The name of the Ollama model to set up (e.g., "llama3.1:8b").
+        model_name (str): The name of the Ollama model to set up (e.g., "qwen3:8b").
 
     Returns:
         ChatOllama: An instance of the ChatOllama model ready for use.
@@ -51,7 +51,7 @@ def build_ollama_graph(model_name: str) -> CompiledGraph:
     configured to use the model and the time tool with a specific prompt.
 
     Args:
-        model_name (str): The name of the Ollama model to use for the agent (e.g., "llama3.1:8b").
+        model_name (str): The name of the Ollama model to use for the agent (e.g., "qwen3:8b").
 
     Returns:
         CompiledGraph: A compiled Langgraph agent ready to process inputs.
@@ -64,13 +64,15 @@ def build_ollama_graph(model_name: str) -> CompiledGraph:
         tools=[get_current_time],
         prompt="""
         You are an assistant that provides helpful responses to user queries.
-        Provide responses to user in language that user uses.
+        Always translate answer to user's language.
+        
         Use the 'get_current_time' tool only when the user explicitly asks for the current time.
-        When the tool is used, include the time in your response.
+        When the tool is used, include the time in your response without formatting.
         If the user does not ask for the time, do not use the tool or include the time.
         
         For example:
-        - If the user asks, 'What time is it?', use the tool and respond with 'The current time is [time].'
+        - If the user asks, 'What time is it?', use the tool and respond with 'The current time is [time without formatting (YYYY‑MM‑DDTHH:MM:SSZ)].'
+        - If the user asks, 'Сколько времени?', use the tool and respond with 'Текущее время [time without formatting (YYYY‑MM‑DDTHH:MM:SSZ)].'
         - If the user says, 'Tell me a joke,' respond with a joke without including the time.
         
         Ensure that the time is only included when the user specifically requests it.
@@ -78,4 +80,4 @@ def build_ollama_graph(model_name: str) -> CompiledGraph:
     )
 
 
-graph = build_ollama_graph(model_name="llama3.1:8b")
+graph = build_ollama_graph(model_name="qwen3:8b")
